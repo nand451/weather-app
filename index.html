@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nand Kishor - Frontend Developer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    header {
+      background: #00aaff;
+      color: white;
+      padding: 50px 20px;
+    }
+    header h1 { margin: 0; font-size: 40px; }
+    section {
+      background: white;
+      margin: 20px auto;
+      padding: 30px;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { color: #00aaff; }
+    iframe { width: 100%; height: 300px; border: 0; border-radius: 10px; }
+    .skills span {
+      background: #00aaff; color: white; padding: 8px 15px; margin: 5px;
+      border-radius: 20px; display: inline-block;
+    }
+    /* Weather App ka CSS */
+    .weather-box input, .weather-box button { padding: 10px; margin: 5px; width: 70%; border-radius: 5px; border: 1px solid #ccc; }
+    .weather-box button { background: #00aaff; color: white; border: none; cursor: pointer; width: 25%; }
+    .weather-box img { width: 100px; height: 100px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hi, I'm Nand Kishor</h1>
+    <p>Frontend Developer | HTML, CSS, JavaScript</p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>Frontend Developer from Lucknow. I love to create responsive and beautiful websites & apps.</p>
+  </section>
+
+  <section>
+    <h2>My Skills</h2>
+    <div class="skills">
+      <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>API</span>
+    </div>
+  </section>
+
+  <!-- YE NAYA SECTION: WEATHER APP -->
+  <section class="weather-box">
+    <h2>🌤️ My Weather App Project</h2>
+    <p>Kisi bhi sheher ka mausam check karo</p>
+    <input type="text" id="city" placeholder="Sheher ka naam likho">
+    <button onclick="getWeather()">Search</button>
+    <div id="result" style="margin-top:20px;"></div>
+  </section>
+
+  <section>
+    <h2>My Location</h2>
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.999!2d80.789155!3d26.846694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfd991f32b16b%3A0x93ccba8909978be7!2sLucknow%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1690000000" 
+      allowfullscreen="" loading="lazy">
+    </iframe>
+  </section>
+
+  <section>
+    <h2>Contact Me</h2>
+    <p>Email: nandkishor@email.com</p>
+  </section>
+
+<script>
+const apiKey = "ce3b1943a169c0e05a96904c8761d0a8";
+
+async function getWeather() {
+  let city = document.getElementById("city").value;
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  
+  let response = await fetch(url);
+  let data = await response.json();
+  
+  let icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  
+  document.getElementById("result").innerHTML = `
+    <h3>${data.name}</h3>
+    <img src="${icon}">
+    <p>🌡️ Temp: ${data.main.temp}°C</p>
+    <p>☁️ ${data.weather[0].description}</p>
+    <p>💧 Humidity: ${data.main.humidity}%</p>
+    <p>💨 Wind: ${data.wind.speed} m/s</p>
+  `;
+}
+</script>
+
+</body>
+</html>
